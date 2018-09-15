@@ -16,7 +16,10 @@ export const createVermonaDRM1 = () =>
       { name: "HH2 clsd", note: 12 },
       { name: "HH2 open", note: 14 }
     ],
-    length: 16
+    length: 16,
+    options: {
+      transpose: 12 * 3
+    }
   });
 
 export const createMicrobrute = () =>
@@ -24,15 +27,21 @@ export const createMicrobrute = () =>
     name: "Arturia Microbrute",
     midiChannel: 1,
     polyphony: 1,
-    length: 16
+    length: 16,
+    options: {
+      transpose: 24
+    }
   });
 
 export const createSystem1 = () =>
   createSynth({
     name: "Roland System-1",
     midiChannel: 2,
-    polyphony: 4,
-    length: 16
+    polyphony: 1,
+    length: 16,
+    options: {
+      transpose: 24
+    }
   });
 
 export const createDefaultDevices = () => ({

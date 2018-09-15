@@ -21,7 +21,9 @@ export interface Channel extends Listenable {
   position: number;
   repeats: number;
   legato: boolean;
+  transpose: number;
   scale?: number[];
+  playingNote?: Note
 }
 
 export interface Play {
@@ -38,6 +40,7 @@ export type ChannelEventListener = (
 
 const withEventSupport = <T extends object>(obj: T): T & Listenable => {
   const listeners: ChannelEventListener[] = [];
+  console.log(obj)
   return Object.assign({}, obj, {
     addListener(listener) {
       listeners.push(listener);
@@ -68,6 +71,7 @@ export const createDrumChannel = (opts: {
     position: -1,
     repeats: 0,
     legato: false,
+    transpose: 0,
     ...opts.options
   });
 
@@ -90,6 +94,7 @@ export const createMelodyChannel = (opts: {
     position: -1,
     repeats: 0,
     legato: true,
+    transpose: 0,
     ...opts.options
   });
 
@@ -101,6 +106,7 @@ export const updateChannelPosition = (
   const tickLength = 60000 / ticksPerMinute;
   const newPosition =
     Math.floor(timeElapsed / tickLength) % channel.pattern.length;
+    
   if (channel.position !== newPosition) {
     channel.position = newPosition;
 

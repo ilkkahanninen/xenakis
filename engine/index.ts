@@ -2,7 +2,7 @@ import { Instrument, updateInstrumentPosition } from "./instrument";
 import { timeNow } from "./utils";
 import { Play } from "./channel";
 import { clearScreen, printInstrument, printTitle, setPos } from "./ui";
-import { sendIntrumentMidiEvents, getPortName } from "./midi";
+import { sendIntrumentMidiEvents, getPortName, killAudio } from "./midi";
 
 export const run = (name: string, instruments: Instrument[]) => {
   const startTime = timeNow();
@@ -27,8 +27,9 @@ export const run = (name: string, instruments: Instrument[]) => {
       }
       setTimeout(render, 0);
     } catch (err) {
+      killAudio();
       console.log("Something bad happened\n");
-      console.log(instruments);
+      console.log(JSON.stringify(instruments, null, 2));
       throw err;
     }
   };

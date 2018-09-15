@@ -24,11 +24,17 @@ export const setPos = (line: number, col: number) =>
   write(`\x1B[${line};${col}H`);
 
 // Patterns
-const patternStep = (data: string[], from: number, to?: number) =>
-  data
-    .slice(from, to)
-    .map(x => x.padEnd(3, " "))
-    .join("");
+const patternStep = (data: string[], from: number, to?: number) => {
+  try {
+    return data
+      .slice(from, to)
+      .map(x => x.padEnd(3, " "))
+      .join("");
+  } catch (err) {
+    console.log({ data, from, to });
+    throw err;
+  }
+}
 
 export const printPattern = (name: string, data: string[], pos: number) =>
   console.log(
@@ -58,9 +64,9 @@ export const printInstrument = (instrument: Instrument) => {
 
 export const velocitySymbol = (note: Note) =>
   note.velocity > 0
-    ? velocitySymbols[
-        Math.floor((note.velocity * velocitySymbols.length) / 127)
-      ]
+    ? (velocitySymbols[
+        Math.floor((note.velocity * velocitySymbols.length) / 128)
+      ] || "?")
     : ".";
 
 export const noteSymbol = (note: Note) =>

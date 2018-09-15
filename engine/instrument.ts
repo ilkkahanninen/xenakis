@@ -13,6 +13,7 @@ export const createDrumMachine = (opts: {
     name: string;
     note: number;
   }>;
+  options?: {};
 }): Instrument => ({
   name: opts.name,
   channels: opts.channels.map(channel =>
@@ -20,7 +21,8 @@ export const createDrumMachine = (opts: {
       name: channel.name,
       midiChannel: opts.midiChannel,
       note: channel.note,
-      length: opts.length
+      length: opts.length,
+      options: opts.options
     })
   )
 });
@@ -30,6 +32,7 @@ export const createSynth = (opts: {
   midiChannel: number;
   length: number;
   polyphony: number;
+  options?: {}
 }): Instrument => ({
   name: opts.name,
   channels: Array(opts.polyphony)
@@ -38,7 +41,8 @@ export const createSynth = (opts: {
       createMelodyChannel({
         name: `#${index}`,
         midiChannel: opts.midiChannel,
-        length: opts.length
+        length: opts.length,
+        options: opts.options
       })
     )
 });

@@ -37,7 +37,7 @@ export const adjustingPointMutation = (
     channel.pattern[pos].velocity = clamp(
       0,
       channel.pattern[pos].velocity +
-        randomInt(options.minVelocity || 1, options.maxVelocity || 32),
+        randomInt(options.minVelocity || -32, options.maxVelocity || 32),
       127
     );
   }
@@ -45,7 +45,7 @@ export const adjustingPointMutation = (
     channel.pattern[pos].note = clamp(
       0,
       channel.pattern[pos].note +
-        randomInt(options.minNote || 1, options.maxNote || 12),
+        randomInt(options.minNote || -3, options.maxNote || 3),
       127
     );
   }
